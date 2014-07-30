@@ -38,3 +38,8 @@ following to your .tel file)
 # DELF - delete a file if it exists
 # FILE - wait until a file exists
 
+Tips: Sometimes your device does not like injects back-to-back, try
+      adding a "DELY 1" or just "DELY 0" in between
+      Some devices are picky about \n (LF) vs \r (CR). If INJL does not work,
+      try INJT with a "\r" or "\r\n".
+
