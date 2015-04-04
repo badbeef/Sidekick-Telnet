@@ -34,9 +34,9 @@ following to your .tel file)
 # WAIT - wait for a signal from another script
 # GIVE - give a signal to 1 other script that is waiting on the signal
 # DIST - distribute a signal to all scripts waiting for the signal
-# NEWF - create a 0 byte file /tmp/tin.<userid>.<string>, NOP if file presents
-# DELF - delete a file if it exists
-# FILE - wait until a file exists
+# NEWF - create a 0 byte file /tmp/stelnet.<userid>.<string>, NOP if file presents
+# DELF - delete file /tmp/stelnet.<userid>.<string> if it exists
+# FILE - wait until file /tmp/stelnet.<userid>.<string> exists
 
 Tips: Sometimes your device does not like injects back-to-back, try
       adding a "DELY 1" or just "DELY 0" in between
