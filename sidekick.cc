@@ -163,10 +163,6 @@ int Script::add_line(char *line)
     int str_len = strlen(line);
     int i, j;
 
-    if (line[0] == '#' || line[0] == '\n') {
-	/* comment */
-	return 1;
-    }
     if (line[0] == ' ') {
 	/* check for blank lines */
 	for (i = 1; i < str_len - 1; i++) {
@@ -276,6 +272,10 @@ int Script::load(char *file)
     }
     while (fgets(line, sizeof(line), fp)) {
 	i++;
+	if (line[0] == '#' || line[0] == '\n') {
+	    /* comment */
+	    continue;
+	}
 	if (strncmp("NAME ", line, 5) == 0) {
 	    if (s) {
 		s->next_script = new Script;
@@ -284,7 +284,7 @@ int Script::load(char *file)
 		s = this;
 	    }
 	}
-	if (!s->add_line(line)) {
+	if (!s || !s->add_line(line)) {
 	    fprintf(stderr, "\nFailed to parse line %d: '%s'\n", i, line);
 	    return 0;
 	}
@@ -440,7 +440,7 @@ void loadScript(char *host, char *port)
     } else {
 	sprintf(script_file, "%s/.telnetrc/%s.tel", pw->pw_dir, host);
     }
-    fprintf(stderr, "Tin Telnet loading %s ... ", script_file);
+    fprintf(stderr, "Sidekick-Telnet loading %s ... ", script_file);
     rc = myscript.load(script_file);
 
     switch(rc) {
